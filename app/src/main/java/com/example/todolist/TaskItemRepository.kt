@@ -1,0 +1,29 @@
+package com.example.todolist
+
+import androidx.annotation.WorkerThread
+import kotlinx.coroutines.flow.Flow
+
+class TaskItemRepository(
+    private val taskItemDao: TaskItemDao
+) {
+    val allTaskItem: Flow<List<TaskItem>> = taskItemDao.allTaskItems()
+
+    @WorkerThread
+    suspend fun insertTaskItem(taskItem: TaskItem) {
+        taskItemDao.insertTaskItem(taskItem)
+    }
+
+    @WorkerThread
+    suspend fun updateTaskItem(taskItem: TaskItem) {
+        taskItemDao.updateTaskItem(taskItem)
+    }
+
+    @WorkerThread
+    fun deleteTaskItem(taskItem: TaskItem) {
+        taskItemDao.deleteTaskItem(taskItem)
+    }
+
+    suspend fun deleteAll() {
+        taskItemDao.deleteAllTasks()
+    }
+}
